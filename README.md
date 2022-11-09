@@ -8,3 +8,7 @@ javaをいれてなかったので`sudo apt install default-jre`<br>
 java -Dsun.java2d.uiScale=2 -classpath "${CLASSPATH}:bin/classes:BuiltIn:bin/lib/Hack.jar:bin/lib/HackGUI.jar:bin/lib/Simulators.jar:bin/lib/SimulatorsGUI.jar:bin/lib/Compilers.jar" HardwareSimulatorMain &
 ....
 ```
+## memo
+### Chapter01
+- .hdlでは変数名に`_`は使えないらしい
+- Muxのときにカルノー図を書いてみたらきれいにできた
