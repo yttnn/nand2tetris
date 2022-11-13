@@ -16,3 +16,22 @@ java -Dsun.java2d.uiScale=2 -classpath "${CLASSPATH}:bin/classes:BuiltIn:bin/lib
 - ALUでつまった
   - 疑似コードを「そのまま」実装したらいけた
   - HDLの文法はちゃんとよもう（戒め）
+### Chapter03
+- カウンタの実装がよくわからない
+  - 結局、他の方の実装をみてやった
+  - なぜ動かないのかが不明
+  ```
+  // これは動いて
+  Inc16(in = regout, out = inc16out);
+  Mux16(a = regout, b = inc16out, sel = inc, out = incout);
+  Mux16(a = incout, b = in, sel = load, out = loadout);
+  Mux16(a = loadout, b[0..15] = false, sel = reset, out = resetout);
+  Register(in = resetout, load = true, out = out, out = regout);
+
+  // これは動かない
+  Mux16(a = regout, b[0..15] = false, sel = reset, out = resetout);
+  Mux16(a = resetout, b = in, sel = load, out = loadout);
+  Inc16(in = loadout, out = inc16out);
+  Mux16(a = loadout, b = inc16out, sel = inc, out = incout);
+  Register(in = resetout, load = true, out = out, out = regout);
+  ```
