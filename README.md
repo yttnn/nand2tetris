@@ -35,3 +35,4 @@ java -Dsun.java2d.uiScale=2 -classpath "${CLASSPATH}:bin/classes:BuiltIn:bin/lib
   Mux16(a = loadout, b = inc16out, sel = inc, out = incout);
   Register(in = resetout, load = true, out = out, out = regout);
   ```
+  - cmpを見た感じ、reset=1のときはload,incにかかわらずresetで、load=1のときはincにかかわらずloadとなっている。そのため、reset>load>incの順に強く、弱い方から書かないとうまく動かない（と思われる）
