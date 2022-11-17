@@ -12,3 +12,15 @@
 // the screen should remain fully clear as long as no key is pressed.
 
 // Put your code here.
+(LOOP)
+
+(END)
+
+(FILLBLACKLOOP)
+(FILLBLACKLOOPEND)
+
+(FILLWHITELOOP)
+(FILLWHITELOOPEND)
+
+@END
+0;JMP
