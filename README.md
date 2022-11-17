@@ -37,6 +37,7 @@ java -Dsun.java2d.uiScale=2 -classpath "${CLASSPATH}:bin/classes:BuiltIn:bin/lib
   ```
   - cmpを見た感じ、reset=1のときはload,incにかかわらずresetで、load=1のときはincにかかわらずloadとなっている。そのため、reset>load>incの順に強く、弱い方から書かないとうまく動かない（と思われる）
 ### Chapter04
+- アセンブリからバイナリが生成されてるのが視覚的にわかって楽しかった
 - multはいけなさそうに見えたが、いけた
 - fillはわからん
   - そのうちやる
