@@ -41,3 +41,46 @@ java -Dsun.java2d.uiScale=2 -classpath "${CLASSPATH}:bin/classes:BuiltIn:bin/lib
 - multはいけなさそうに見えたが、いけた
 - fillはわからん
   - そのうちやる
+### Chapter05
+- Memory
+  - RAMをちゃんと理解することが大事そう
+  - RAMのアドレスは2^14なのに、なんでメモリのアドレスは2^15まで受けられるの？
+  - RAMとSCREENの両方にloadを通すのはNG
+    - 仕様どおりにアドレスの値で分岐させる
+  - アドレスの値によってoutがRAM,SCREEN,KEYBOARDなのかが変わるため、アドレスで分岐させる
+    - 2進でアドレスの値を書いてみるといけた
+  - Mux4Wayとかでもいけそう？
+- CPU
+  - 4章にあるA命令、C命令の理解が重要そう（C命令はALUと対応？）
+    - C命令で、a=0のときはA、a=1のときはMになる
+    - C命令で、DはALUのxに対応、A,Mはyに対応 -> aはALUのy入力に使う？
+    - c1~c6はそれぞれ、ALUのzx~noに対応？ -> してそう！！
+  - [すばらしい表](https://nihemak.hatenablog.com/entry/2019/04/28/150541#CPU)があったので参考にさせていただきました
+
+  | bit  | A命令 | C命令|
+  | :--: | :-:   | :-   |
+  | 15 | 0 | 1 |
+  | 14 | v | 1 |
+  | 13 | v | 1 |
+  | 12 | v |a : ALUのy |
+  | 11 | v |c1 : zx |
+  | 10 | v |c2 : nx |
+  | 9  | v |c3 : zy |
+  | 8  | v |c4 : ny |
+  | 7  | v |c5 : f |
+  | 6  | v |c6 : no |
+  | 5  | v |d1 : Aレジスタへ保存 |
+  | 4  | v |d2 : Dレジスタへ保存 |
+  | 3  | v |d3 : Memory[A]へ保存 |
+  | 2  | v |j1 : ALUout < 0 |
+  | 1  | v |j2 : ALUout = 0 |
+  | 0  | v |j3 : ALUout > 0 |
+  - PCのloadは、ALUのzr,ngとj123のAndをとらないとうまくいかない（常にloadしてしまう）
+    - j123の仕様がよくわかってない
+  - BuiltInChipを使わないとエラーになった
+- Computer
+  - 実装は問題なし
+  - tstとoutを見てみると理解が深まった
+    - *-external.tstとはいったい..？
+  - とてもすごい＆感動
+- CPU実装がとても苦しかったが、勉強になった
