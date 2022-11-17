@@ -36,3 +36,7 @@ java -Dsun.java2d.uiScale=2 -classpath "${CLASSPATH}:bin/classes:BuiltIn:bin/lib
   Register(in = resetout, load = true, out = out, out = regout);
   ```
   - cmpを見た感じ、reset=1のときはload,incにかかわらずresetで、load=1のときはincにかかわらずloadとなっている。そのため、reset>load>incの順に強く、弱い方から書かないとうまく動かない（と思われる）
+### Chapter04
+- multはいけなさそうに見えたが、いけた
+- fillはわからん
+  - そのうちやる
