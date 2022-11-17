@@ -54,7 +54,7 @@ java -Dsun.java2d.uiScale=2 -classpath "${CLASSPATH}:bin/classes:BuiltIn:bin/lib
   - 4章にあるA命令、C命令の理解が重要そう（C命令はALUと対応？）
     - C命令で、a=0のときはA、a=1のときはMになる
     - C命令で、DはALUのxに対応、A,Mはyに対応 -> aはALUのy入力に使う？
-    - c1~c6はそれぞれ、ALUのzx~noに対応？ -> してそう！！
+    - c1\~c6はそれぞれ、ALUのzx\~noに対応？ -> してそう！！
   - [すばらしい表](https://nihemak.hatenablog.com/entry/2019/04/28/150541#CPU)があったので参考にさせていただきました
 
   | bit  | A命令 | C命令|
