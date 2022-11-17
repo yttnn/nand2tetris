@@ -28,4 +28,12 @@ CHIP Memory {
 
     PARTS:
     // Put your code here:
+    DMux(in = load, sel = address[14], a = ramload, b = scrload); // これがないと、ramとscreenを同時に書き換えることになってしまう。0~16383までがram、それ以降はscreen
+    RAM16K(in = in, load = ramload, address = address[0..13], out = ramout);
+    Keyboard(out = keyout);
+    Screen(in = in, load = scrload, address = address[0..12], out = scrout);
+    // 24576 = 0b110000000000000  <- keyout
+    // 16384 = 0b100000000000000  <- scrout
+    Mux16(a = scrout, b = keyout, sel = address[13], out = keyorscrout);
+    Mux16(a = ramout, b = keyorscrout, sel = address[14], out = out);
 }

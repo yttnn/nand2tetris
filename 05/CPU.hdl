@@ -40,4 +40,45 @@ CHIP CPU {
 
     PARTS:
     // Put your code here:
+
+    // Mux1 select A(ddress) instruction or C(ompute instruction)
+    // C instruction needs A instruction result, so aluout is selected
+    Mux16(a = instruction, b = aluout, sel = instruction[15], out = mux1out);
+
+    // A Register
+    Not(in = instruction[15], out = notinst15);
+    Or(a = notinst15, b = instruction[5], out = loadAreg);
+    ARegister(in = mux1out, load = loadAreg, out = Aregout, out[0..14] = addressM);
+
+    // Mux2 select ALU-y input from A Register or Memory
+    Mux16(a = Aregout, b = inM, sel = instruction[12], out = mux2out);
+
+    // ALU
+    ALU(x = Dregout,
+        y = mux2out,
+        zx = instruction[11],
+        nx = instruction[10],
+        zy = instruction[9],
+        ny = instruction[8],
+        f  = instruction[7],
+        no = instruction[6],
+        out = aluout, out = outM, zr = aluoutis0, ng = aluoutisrh0);
+    
+    // D Register
+    And(a = instruction[4], b = instruction[15], out = loadDreg);
+    DRegister(in = aluout, load = loadDreg, out = Dregout);
+
+    // PC
+    Or(a = aluoutis0, b = aluoutisrh0, out = or1);
+    Not(in = or1, out = aluoutisgh0); // is aluout positive?
+    And(a = aluoutisgh0, b = instruction[0], out = positive);
+    And(a = aluoutis0, b = instruction[1], out = equalzero);
+    And(a = aluoutisrh0, b = instruction[2], out = negative);
+    Or(a = equalzero, b = negative, out = zrorng);
+    Or(a = zrorng, b = positive, out = zrorngorps);
+    And(a = instruction[15], b = zrorngorps, out = loadPC);
+    PC(in = Aregout, load = loadPC, inc = true, reset = reset, out[0..14] = pc);
+
+    // writeM
+    And(a = instruction[15], b = instruction[3], out = writeM);
 }
