@@ -10,3 +10,38 @@
 // R0 >= 0, R1 >= 0, and R0*R1 < 32768.
 
 // Put your code here.
+
+// result
+@R2
+M=0
+
+// counter
+@R3
+M=0
+
+(LOOP)
+  // exit LOOP
+  @R3
+  D=M
+  @R1
+  D=D-M
+  @END
+  D;JEQ // if D==0
+
+  // exec Mult
+  @R0
+  D=M
+  @R2
+  M=D+M
+
+  // counter
+  @R3
+  M=M+1
+
+  // jump to "LOOP"
+  @LOOP
+  0;JMP
+(END)
+
+@END
+0;JMP
